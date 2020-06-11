@@ -1,10 +1,32 @@
 .carousal {
-    overflow: hidden;
-    overflow-y: scroll;
-    .item {
-        border: 1px solid black;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        height: 300px;
+
+    .carousal-items {
+        position: relative;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        .carousal-item {
+            border: 1px solid black;
+            margin-bottom: 20px;
+            height: 300px;
+        }
+    }
+
+    .tracker {
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .dot {
+            width: 10px;
+            height: 10px;
+            border: 1px solid black;
+            margin: 5px;
+        }
     }
 }
