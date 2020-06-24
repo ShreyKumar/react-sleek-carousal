@@ -1,16 +1,38 @@
-.carousal {
+* {
+    box-sizing: border-box;
+}
 
+.carousal {
+    scroll-behavior: smooth;
     .carousal-items {
+        scroll-behavior: smooth;
         position: relative;
-        overflow-y: scroll;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
         -ms-overflow-style: none;
         &::-webkit-scrollbar {
             display: none;
         }
+        
+        &.vertical {
+            flex-direction: row;
+
+            .carousal-item:not(:last-child) {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+        }
+
         .carousal-item {
             border: 1px solid black;
-            margin-bottom: 20px;
-            height: 300px;
+            width: 100%;
+            &:not(:last-child) {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
         }
     }
 
