@@ -1,18 +1,16 @@
-import React, { useRef, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.scss';
 import ReactCarousal from './ReactCarousal'
 
 function App() {
+    const [active, setActive] = useState(1)
+
     return (
         <div className="App">
-            <ReactCarousal height={500} vertical>
-                {/* <ReactCarousalItem height="450px"> */}
-                    <h1>A</h1>
-                {/* </ReactCarousalItem> */}
-                {/* <ReactCarousalItem height="200px"> */}
-                    <h1>B</h1>
-                {/* </ReactCarousalItem> */}
+            <ReactCarousal height={500} vertical active={active} setActive={setActive}>
+                <h1>A</h1>
+                <h1>B</h1>
+                <h1>C</h1>
             </ReactCarousal>
         </div>
     );

@@ -4,57 +4,68 @@ import PropTypes from 'prop-types'
 
 import './ReactCarousal.scss'
 
-const ReactCarousal = ({ active: activeInitial, onTransition, height, children, trackerColor, trackerShape, disableTracker, vertical }) => {
-    const [animating, setAnimating] = useState(false)
+const ReactCarousal = ({ active: activeInitial, onTransition, height, children, trackerColor, trackerShape, disableTracker, vertical, loop, delay }) => {
+    const TOTAL_ITEMS = children.length
+
     const [active, setActive] = useState(activeInitial)
+
+    const initializing = useRef(false)
+    const animating = useRef(false)
+    const looping = useRef(false)
     const lastScrollPos = useRef(0)
     const parentScrollRef = useRef(null)
     const { scrollX, scrollY } = useElementScroll(parentScrollRef)
-    let childRefs = []
+    const childRefs = useRef([])
 
     useEffect(() => {
-        console.log(childRefs)
-        if (childRefs.length > 0) {
-            lastScrollPos.current = childRefs[0].getBoundingClientRect().top
-            lastScrollPos.current = scrollY.get()
-            childRefs[active].scrollIntoView()
-        // childRefs[1].scrollIntoView()
-        //     lastScrollPos.current = childRefs[0].current.getBoundingClientRect().top
-        //     console.log(lastScrollPos.current)
-        }
-    }, [childRefs, active])
-
-    scrollY.onChange(() => {
-        console.log(childRefs[0].getBoundingClientRect())
-        console.log(childRefs[1].getBoundingClientRect())
-        const scrollVal = scrollY.get()
-        if (scrollVal < lastScrollPos.current) {
-            const prevIdx = active-1 < 0 ? childRefs.length-1 : active-1
-            const rectInfo = childRefs[prevIdx].getBoundingClientRect()
-
-            if (rectInfo.top !== 50) {
-
-            }
-            console.log("scroll up")
-        }
-        
-        if (scrollVal > lastScrollPos.current) {
-            const nextIdx = active+1 === childRefs.length ? 0 : active+1
-            console.log("scroll down")
+        if (childRefs.current.length > 0) {
+            lastScrollPos.current = childRefs.current[0].getBoundingClientRect().top
         }
 
-        lastScrollPos.current = scrollVal
-    })
+        let interval
+        if (delay) {
+            interval = setInterval(() => {
+                const topOffset = parentScrollRef.current.getBoundingClientRect().top
+                setActive((prevActive) => {
+                    const nextIdx = prevActive + 1 < TOTAL_ITEMS ? prevActive + 1 : 0
+                    const infoRect = childRefs.current[nextIdx].getBoundingClientRect()
+                    const currInfoRect = childRefs.current[prevActive].getBoundingClientRect()
+
+                    if (infoRect.top !== topOffset && !animating.current) {
+                        animating.current = true
+                        return nextIdx
+                    }
+
+                    if (currInfoRect.top === topOffset) {
+                        animating.current = false
+                    }
+
+                    return prevActive
+                })
+            }, delay)
+        }
+
+        return () => clearInterval(interval)
+
+    }, [childRefs, active, scrollY, TOTAL_ITEMS, delay])
+
+    useEffect(() => {
+        childRefs.current[activeInitial].scrollIntoView()
+        initializing.current = true
+    }, [activeInitial])
 
     useEffect(() => {
         onTransition(active)
+        const scrollPos = childRefs.current[active].getBoundingClientRect().top
+        // childRefs.current[active].scrollIntoView()
+
     }, [active, onTransition])
 
 
     // create dots
     let dots = []
     children.forEach((child, idx) => {
-        childRefs = [...childRefs, createRef()]
+        childRefs.current = [...childRefs.current, createRef()]
         if (!disableTracker) {
             dots = [...dots, <div className="dot" onClick={() => setActive(idx)} style={{ backgroundColor: trackerColor, borderRadius: trackerShape === 'circle' ? '50px' : 0 }} />]
         }
@@ -62,22 +73,67 @@ const ReactCarousal = ({ active: activeInitial, onTransition, height, children, 
 
 
     const trackScrolling = (e) => {
-        // e.preventDefault()
-        // if (childRefs.length > 0) {
-        //     const st = childRefs[0].getBoundingClientRect().top
-        //     console.log(lastScrollPos.current, st)
-    
-        //     if (st <= lastScrollPos.current) {
-        //         console.log("scroll down")
-        //         console.log(st)
-        //         childRefs[1].scrollIntoView()
-        //         // setActive(active + 1 === childRefs.length ? 0 : active + 1)
-        //     } else {
-        //         console.log("scroll up")
-        //         // setActive(active - 1 < 0 ? 0 : active - 1)
-        //     }
-        //     lastScrollPos.current = st
-        // }
+        e.preventDefault()
+
+        const initialRect = childRefs.current[activeInitial].getBoundingClientRect()
+        const topOffset = parentScrollRef.current.getBoundingClientRect().top
+        const st = childRefs.current[activeInitial].getBoundingClientRect().top
+        
+        if (initialRect.top === topOffset) {
+            initializing.current = false
+        } else if (st <= lastScrollPos.current) {
+            console.log("scroll down")
+            setActive((prevActive) => {
+                const nextIdx = prevActive + 1 < TOTAL_ITEMS ? prevActive + 1 : 0
+                const infoRect = childRefs.current[nextIdx].getBoundingClientRect()
+                const currInfoRect = childRefs.current[prevActive].getBoundingClientRect()
+
+                if (infoRect.top !== topOffset && !animating.current) {
+                    console.log("START")
+                    childRefs.current[nextIdx].scrollIntoView({ behavior: "smooth" })
+                    animating.current = true
+                    return nextIdx
+                }
+
+                console.log(currInfoRect.top)
+
+                if (currInfoRect.top === topOffset) {
+                    console.log("STOP")
+                    animating.current = false
+                }
+
+                if (nextIdx === 0) {
+                    looping.current = true
+                }
+
+                return prevActive
+            })
+        } else {
+            console.log("scroll up")
+            setActive((prevActive) => {
+                const prevIdx = prevActive - 1 < 0 ? TOTAL_ITEMS-1 : prevActive - 1
+
+                const infoRect = childRefs.current[prevIdx].getBoundingClientRect()
+                const currInfoRect = childRefs.current[prevActive].getBoundingClientRect()
+
+                if (infoRect.top !== topOffset && !animating.current) {
+                    console.log("START")
+                    childRefs.current[prevIdx].scrollIntoView({ behavior: "smooth" })
+                    animating.current = true
+                    return prevIdx
+                }
+
+                if (currInfoRect.top === topOffset) {
+                    console.log("STOP")
+                    animating.current = false
+                }
+
+                return prevActive
+
+            })
+        }
+
+        lastScrollPos.current = st
     }
 
     return (
@@ -86,12 +142,13 @@ const ReactCarousal = ({ active: activeInitial, onTransition, height, children, 
                 {
                     children.map((child, idx) => {
                         return (
-                            <div className="carousal-item" style={{ height }} ref={(el) => childRefs[idx] = el}>
+                            <div className="carousal-item" style={{ height }} ref={(el) => childRefs.current[idx] = el}>
                                 { child }
                             </div>
                         )
                     })
                 }
+                <div className="dummy" style={{height: "10px", width: "100%", marginBottom: 20}} />
             </div>
             {
                 !disableTracker && (
@@ -112,11 +169,12 @@ ReactCarousal.defaultProps = {
     disableTracker: false,
     trackerAlignment: "bottom",
     trackerShape: "square",
-    trackerColor: "grey"
+    trackerColor: "grey",
+    delay: null,
 }
 
 ReactCarousal.propTypes = {
-    active: PropTypes.bool,
+    active: PropTypes.number,
     onTransition: PropTypes.func,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     vertical: PropTypes.bool,
@@ -124,6 +182,7 @@ ReactCarousal.propTypes = {
     trackerAlignment: PropTypes.oneOf(["top", "bottom", "left", "right"]),
     trackerShape: PropTypes.oneOf(["circle", "square"]),
     trackerColor: PropTypes.string,
+    delay: PropTypes.number,
 }
 
 export default ReactCarousal
