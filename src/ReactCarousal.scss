@@ -46,8 +46,14 @@
             width: 10px;
             height: 10px;
             border: 1px solid black;
-            margin: 5px;
+            margin: 7px;
             cursor: pointer;
+            transition: all ease-in-out 0.15s;
+            border-radius: 50px;
+            &.active {
+                transform: scale(1.5);
+                background-color: black;
+            }
         }
     }
 }
