@@ -1,64 +1,37 @@
 import React, { createRef, useEffect, useRef, useState } from 'react'
 import { useElementScroll } from 'framer-motion'
 import PropTypes from 'prop-types'
+import scrollIntoView from 'scroll-into-view'
 
 import './ReactCarousal.scss'
 
-const ReactCarousal = ({ active: activeInitial, onTransition, height, children, trackerColor, trackerShape, disableTracker, vertical, loop, delay }) => {
+const ReactCarousal = ({ active: activeInitial, onTransition, height, children, trackerColor, trackerShape, disableTracker, vertical, delay }) => {
     const TOTAL_ITEMS = children.length
 
     const [active, setActive] = useState(activeInitial)
 
-    const initializing = useRef(false)
-    const animating = useRef(false)
-    const looping = useRef(false)
+    const st = useRef(0)
+    const [initializing, setInitializing] = useState(true)
+    const [animating, setAnimating] = useState(false)
+
     const lastScrollPos = useRef(0)
     const parentScrollRef = useRef(null)
-    const { scrollX, scrollY } = useElementScroll(parentScrollRef)
     const childRefs = useRef([])
 
     useEffect(() => {
-        if (childRefs.current.length > 0) {
-            lastScrollPos.current = childRefs.current[0].getBoundingClientRect().top
+        if (childRefs.current.length > 0 && initializing) {
+            lastScrollPos.current = parentScrollRef.current.getBoundingClientRect().top
         }
-
-        let interval
-        if (delay) {
-            interval = setInterval(() => {
-                const topOffset = parentScrollRef.current.getBoundingClientRect().top
-                setActive((prevActive) => {
-                    const nextIdx = prevActive + 1 < TOTAL_ITEMS ? prevActive + 1 : 0
-                    const infoRect = childRefs.current[nextIdx].getBoundingClientRect()
-                    const currInfoRect = childRefs.current[prevActive].getBoundingClientRect()
-
-                    if (infoRect.top !== topOffset && !animating.current) {
-                        animating.current = true
-                        return nextIdx
-                    }
-
-                    if (currInfoRect.top === topOffset) {
-                        animating.current = false
-                    }
-
-                    return prevActive
-                })
-            }, delay)
-        }
-
-        return () => clearInterval(interval)
-
-    }, [childRefs, active, scrollY, TOTAL_ITEMS, delay])
+    }, [childRefs, active, TOTAL_ITEMS, delay, initializing])
 
     useEffect(() => {
         childRefs.current[activeInitial].scrollIntoView()
-        initializing.current = true
+        setInitializing(true)
     }, [activeInitial])
 
     useEffect(() => {
+        setAnimating(false)
         onTransition(active)
-        const scrollPos = childRefs.current[active].getBoundingClientRect().top
-        // childRefs.current[active].scrollIntoView()
-
     }, [active, onTransition])
 
 
@@ -74,71 +47,59 @@ const ReactCarousal = ({ active: activeInitial, onTransition, height, children, 
 
     const trackScrolling = (e) => {
         e.preventDefault()
+        console.log("scrolling")
 
         const initialRect = childRefs.current[activeInitial].getBoundingClientRect()
-        const topOffset = parentScrollRef.current.getBoundingClientRect().top
-        const st = childRefs.current[activeInitial].getBoundingClientRect().top
         
-        if (initialRect.top === topOffset) {
-            initializing.current = false
-        } else if (st <= lastScrollPos.current) {
-            console.log("scroll down")
-            setActive((prevActive) => {
-                const nextIdx = prevActive + 1 < TOTAL_ITEMS ? prevActive + 1 : 0
-                const infoRect = childRefs.current[nextIdx].getBoundingClientRect()
-                const currInfoRect = childRefs.current[prevActive].getBoundingClientRect()
-
-                if (infoRect.top !== topOffset && !animating.current) {
-                    console.log("START")
-                    childRefs.current[nextIdx].scrollIntoView({ behavior: "smooth" })
-                    animating.current = true
-                    return nextIdx
-                }
-
-                console.log(currInfoRect.top)
-
-                if (currInfoRect.top === topOffset) {
-                    console.log("STOP")
-                    animating.current = false
-                }
-
-                if (nextIdx === 0) {
-                    looping.current = true
-                }
-
-                return prevActive
-            })
+        let parentOffset
+        if (vertical) {
+            parentOffset = parentScrollRef.current.getBoundingClientRect().top
         } else {
-            console.log("scroll up")
-            setActive((prevActive) => {
-                const prevIdx = prevActive - 1 < 0 ? TOTAL_ITEMS-1 : prevActive - 1
-
-                const infoRect = childRefs.current[prevIdx].getBoundingClientRect()
-                const currInfoRect = childRefs.current[prevActive].getBoundingClientRect()
-
-                if (infoRect.top !== topOffset && !animating.current) {
-                    console.log("START")
-                    childRefs.current[prevIdx].scrollIntoView({ behavior: "smooth" })
-                    animating.current = true
-                    return prevIdx
-                }
-
-                if (currInfoRect.top === topOffset) {
-                    console.log("STOP")
-                    animating.current = false
-                }
-
-                return prevActive
-
-            })
+            parentOffset = parentScrollRef.current.getBoundingClientRect().left
         }
+        st.current = childRefs.current[activeInitial].getBoundingClientRect().top
+        
+        if (initialRect.top === parentOffset) {
+            setInitializing(false)
+        } else {
+            const currInfoRect = childRefs.current[active].getBoundingClientRect()
 
-        lastScrollPos.current = st
+            // down vars
+            const nextIdx = active + 1 < TOTAL_ITEMS ? active + 1 : 0
+            const nextElem = childRefs.current[nextIdx]
+            const nextInfoRect = nextElem.getBoundingClientRect()
+
+            // up vars
+            const prevIdx = active - 1 < 0 ? TOTAL_ITEMS-1 : active - 1
+            const prevElem = childRefs.current[prevIdx]
+            const prevInfoRect = prevElem.getBoundingClientRect()
+
+            if (vertical) {
+                if (st.current < lastScrollPos.current && currInfoRect.top !== parentOffset && !animating && nextInfoRect.top !== parentOffset) {
+                    setAnimating(true)
+                    scrollIntoView(nextElem, {cancellable: false, time: 1000}, (type) => {
+                        if (type === 'complete') {
+                            setActive(nextIdx)
+                        }
+                    })
+                } else if (st.current > lastScrollPos.current && currInfoRect.top !== parentOffset && !animating && prevInfoRect.top !== parentOffset) {
+                    setAnimating(true)
+                    scrollIntoView(prevElem, {cancellable: false, time: 1000}, (type) => {
+                        if (type === 'complete') {
+                            setActive(prevIdx)
+                        }
+                    })
+                }
+            }
+
+            lastScrollPos.current = st.current
+        }
     }
 
     return (
         <div className="carousal">
             <div className={`carousal-items${vertical ? ' vertical' : ''}`} ref={parentScrollRef} style={{ height }} onScroll={trackScrolling}>
+                <div className="dummy" style={{height: "10px", width: "100%", marginBottom: 20}} />
                 {
                     children.map((child, idx) => {
                         return (
