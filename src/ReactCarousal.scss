@@ -3,8 +3,8 @@
 }
 
 .carousal {
+    position: relative;
     .carousal-items {
-        // position: relative;
         overflow: scroll;
         display: flex;
         flex-direction: column;
@@ -25,7 +25,6 @@
         }
 
         .carousal-item {
-            border: 1px solid black;
             width: 100%;
             &:not(:last-child) {
                 margin-bottom: 0;
@@ -40,8 +39,15 @@
         width: 200px;
         height: 30px;
         display: flex;
+        flex-direction: row;
         justify-content: center;
         align-items: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+
         .dot {
             width: 10px;
             height: 10px;

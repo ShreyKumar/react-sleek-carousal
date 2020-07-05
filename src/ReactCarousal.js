@@ -13,6 +13,18 @@ const ReactCarousal = ({
     height,
     children,
     disableTracker,
+    containerClassName,
+    containerStyle,
+    className,
+    style,
+    itemContainerClassName,
+    itemContainerStyle,
+    trackerClassName,
+    trackerStyle,
+    trackerDotClassName,
+    trackerDotStyle,
+    trackerDotActiveClassName,
+    trackerDotActiveStyle,
     vertical,
     delay,
     speed,
@@ -75,8 +87,9 @@ const ReactCarousal = ({
                 ...dots, 
                 (
                     <div
-                        className={`dot${active === idx ? ' active' : ''}`}
+                        className={`${trackerDotClassName} dot${active === idx ? ` ${trackerDotActiveClassName} active` : ''}`}
                         onClick={() => transitionToItem({ idx, elem: childRefs.current[idx] })}
+                        style={active === idx ? trackerDotActiveStyle : trackerDotStyle}
                     />
                 )
             ]
@@ -152,15 +165,15 @@ const ReactCarousal = ({
     }
 
     return (
-        <div className="carousal">
-            <div className={`carousal-items${vertical ? ' vertical' : ''}`} style={{ height }} onWheel={!disableScroll ? trackScrolling : null}>
+        <div className={`${containerClassName} carousal`} style={containerStyle}>
+            <div className={`${className} carousal-items${vertical ? ' vertical' : ''}`} style={{ ...style, height }} onWheel={!disableScroll ? trackScrolling : null}>
                 {
                     looping && <div className="dummy" style={{height: "10px", width: "100%", marginBottom: 20}} />
                 }
                 {
                     children.map((child, idx) => {
                         return (
-                            <div key={idx} className="carousal-item" style={{ height }} ref={(el) => childRefs.current[idx] = el}>
+                            <div key={idx} className={`${itemContainerClassName} carousal-item`} style={{ ...itemContainerStyle, height }} ref={(el) => childRefs.current[idx] = el}>
                                 { child }
                             </div>
                         )
@@ -172,7 +185,7 @@ const ReactCarousal = ({
             </div>
             {
                 !disableTracker && (
-                    <div className="tracker">
+                    <div className={`${trackerClassName} tracker`} style={trackerStyle}>
                         {dots}
                     </div>
                 )
@@ -186,8 +199,8 @@ ReactCarousal.defaultProps = {
     onTransitionStart: () => {},
     onTransitionOver: () => {},
     onTransitionEnd: () => {},
-    height: 500,
     vertical: false,
+    height: 500,
     disableTracker: false,
     disableScroll: false,
     trackerAlignment: "bottom",
@@ -196,9 +209,22 @@ ReactCarousal.defaultProps = {
     speed: 1500,
     looping: false,
     relay: false,
+    containerClassName: '',
+    containerStyle: {},
+    itemContainerClassName: '',
+    itemContainerStyle: {},
+    className: '',
+    style: {},
+    trackerClassName: '',
+    trackerStyle: {},
+    trackerDotClassName: '',
+    trackerDotStyle: {},
+    trackerDotActiveClassName: '',
+    trackerDotActiveStyle: {},
 }
 
 ReactCarousal.propTypes = {
+    children: PropTypes.elementType.isRequired,
     active: PropTypes.number,
     onTransitionStart: PropTypes.func,
     onTransitionOver: PropTypes.func,
@@ -207,12 +233,22 @@ ReactCarousal.propTypes = {
     vertical: PropTypes.bool,
     disableTracker: PropTypes.bool,
     disableScroll: PropTypes.bool,
-    trackerAlignment: PropTypes.oneOf(["top", "bottom", "left", "right"]),
-    trackerColor: PropTypes.string,
     delay: PropTypes.number,
     speed: PropTypes.number,
     looping: PropTypes.bool,
     relay: PropTypes.bool,
+    containerClassName: PropTypes.string,
+    containerStyle: PropTypes.object,
+    itemContainerClassName: PropTypes.string,
+    itemContainerStyle: PropTypes.object,
+    className: PropTypes.string,
+    style: PropTypes.object,
+    trackerClassName: PropTypes.string,
+    trackerStyle: PropTypes.object,
+    trackerDotClassName: PropTypes.string,
+    trackerDotStyle: PropTypes.object,
+    trackerDotActiveClassName: PropTypes.string,
+    trackerDotActiveStyle: PropTypes.object,
 }
 
 export default ReactCarousal
