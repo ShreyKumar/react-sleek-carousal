@@ -195,6 +195,7 @@ const ReactCarousal = ({
 }
 
 ReactCarousal.defaultProps = {
+    children: [],
     active: 0,
     onTransitionStart: () => {},
     onTransitionOver: () => {},
@@ -203,8 +204,6 @@ ReactCarousal.defaultProps = {
     height: 500,
     disableTracker: false,
     disableScroll: false,
-    trackerAlignment: "bottom",
-    trackerColor: "grey",
     delay: null,
     speed: 1500,
     looping: false,
@@ -224,7 +223,7 @@ ReactCarousal.defaultProps = {
 }
 
 ReactCarousal.propTypes = {
-    children: PropTypes.elementType.isRequired,
+    children: PropTypes.elementType,
     active: PropTypes.number,
     onTransitionStart: PropTypes.func,
     onTransitionOver: PropTypes.func,
