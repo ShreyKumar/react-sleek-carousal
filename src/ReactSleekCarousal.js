@@ -3,9 +3,9 @@ import useInterval from '@use-it/interval';
 import PropTypes from 'prop-types'
 import scrollIntoView from 'scroll-into-view'
 
-import './ReactCarousal.scss'
+import './ReactSleekCarousal.scss'
 
-const ReactCarousal = ({
+const ReactSleekCarousal = ({
     active: activeInitial,
     onTransitionStart,
     onTransitionOver,
@@ -194,7 +194,7 @@ const ReactCarousal = ({
     )
 }
 
-ReactCarousal.defaultProps = {
+ReactSleekCarousal.defaultProps = {
     children: [],
     active: 0,
     onTransitionStart: () => {},
@@ -222,7 +222,7 @@ ReactCarousal.defaultProps = {
     trackerDotActiveStyle: {},
 }
 
-ReactCarousal.propTypes = {
+ReactSleekCarousal.propTypes = {
     children: PropTypes.elementType,
     active: PropTypes.number,
     onTransitionStart: PropTypes.func,
@@ -250,4 +250,4 @@ ReactCarousal.propTypes = {
     trackerDotActiveStyle: PropTypes.object,
 }
 
-export default ReactCarousal
+export default ReactSleekCarousal
