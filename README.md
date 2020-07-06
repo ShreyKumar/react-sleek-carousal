@@ -6,13 +6,13 @@ A lightweight, easy to use and highly customizable React component that achieves
 `git clone git@github.com:ShreyKumar/react-sleek-carousal.git && cd react-sleek-carousal && yarn start`
 ### Simple example
 ```
-    <SleekCarousal>
-        // More items here
-        <h1>A</h1>
-        <h1>B</h1>
-        <h1>C</h1>
-        <h1>D</h1>
-    </SleekCarousal>
+<SleekCarousal>
+    // More items here
+    <h1>A</h1>
+    <h1>B</h1>
+    <h1>C</h1>
+    <h1>D</h1>
+</SleekCarousal>
 ```
 ### Customizability
 This component has no required props
