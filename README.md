@@ -6,7 +6,7 @@ A lightweight, easy to use and highly customizable React component that achieves
 `git clone git@github.com:ShreyKumar/react-sleek-carousal.git && cd react-sleek-carousal && yarn start`
 ### Customizability
 This component has no required props
-| Prop | Default Prop | Type | Info |
+| Prop name | Default Prop | Type | Info |
 | --- | ----------- | ------ | ---------- |
 | `children` | `[]` | Array of Elements | Array of children elements for the component |
 | `active` | `0` | Boolean | The index of the element in `children` that will be shown first after the component loads |
