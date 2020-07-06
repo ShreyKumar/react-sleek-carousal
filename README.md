@@ -1,6 +1,5 @@
 # React Sleek Carousal
-**(This project is complete but is yet to be published to the NPM registry)**
-PRs are welcome
+**(This project is complete but is yet to be published to the NPM registry)**PRs are welcome
 ### About
 A lightweight, easy to use and highly customizable React component that achieves a "Carousal" or "Slideshow" effect. 
 ### Quick Start for development purposes
