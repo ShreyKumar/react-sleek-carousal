@@ -44,3 +44,5 @@ This component has no required props
 | `trackerDotActiveClassName` | `''` | String | `className` for the tracker dot element in the active state |
 | `trackerDotActiveStyle` | `{}` | Object | `style` for the tracker dot element in the active state |
 
+### Contributors
+[Shreyansh "Shrey" Kumar](https://github.com/ShreyKumar)
