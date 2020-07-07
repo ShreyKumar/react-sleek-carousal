@@ -5,7 +5,7 @@ import SleekCarousal from './SleekCarousal'
 function App() {
     return (
         <div className="App">
-            <SleekCarousal height={500} active={3} delay={1000} looping relay>
+            <SleekCarousal>
                 <h1>A</h1>
                 <h1>B</h1>
                 <h1>C</h1>
