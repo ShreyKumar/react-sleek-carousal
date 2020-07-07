@@ -15,7 +15,7 @@ A lightweight, easy to use and highly customizable React component that achieves
 </SleekCarousel>
 ```
 ### Limitations
-This package has some mobile responsiveness issues and is yet to be fixed
+This package has some mobile responsiveness issues that is yet to be fixed
 ### Customizability
 This component has no required props
 | Prop name | Default Prop | Type | Info |
