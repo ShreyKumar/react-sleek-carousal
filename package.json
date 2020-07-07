@@ -2,7 +2,7 @@
     "name": "sleek-react-carousel",
     "version": "1.0.0",
     "description": "A highly customizable React Carousel compononent with scrolling, relaying and panning support",
-    "keywords": ["react", "component", "vertical", "scroll", "pan", "timing", "slider", "slide", "slideshow", "delay", "looping", "loop", "relay", "loopback", "carousal", "carousel-component", "carousel-slider", "carousel-plugin"],
+    "keywords": ["react", "component", "vertical", "scroll", "scrolling", "panning", "pan", "timing", "slider", "slide", "slideshow", "delay", "looping", "loop", "relay", "loopback", "carousal", "carousel-component", "carousel-slider", "carousel-plugin"],
     "bugs": {
         "url": "https://github.com/ShreyKumar/react-sleek-carousal/issues"
     },
