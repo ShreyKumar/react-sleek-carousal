@@ -2,7 +2,6 @@
     "name": "sleek-react-carousel",
     "version": "1.0.0",
     "description": "A highly customizable React Carousel compononent with scrolling and panning support",
-    "main": "./lib/SleekCarousel.js",
     "dependencies": {
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
