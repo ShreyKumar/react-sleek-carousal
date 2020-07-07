@@ -31,6 +31,7 @@ This component has no required props
 | `speed` | `1500` | Number | The speed in `ms` of transitions |
 | `looping` | `false` | Boolean | Enable carousal of loop back to the start |
 | `relay` | `false` | Boolean | Enable "relaying" back to the start instead of looping back. If both `relay` and `looping` is enabled, the Carousal ignores `looping` |
+| `panning` | `false` | Boolean | Enable [panning](https://www.framer.com/api/motion/gestures/#pan) to switch between child elements |
 | `containerClassName` | `''` | String | `className` for the Container of the main element which contains all `children` elements |
 | `containerStyle` | `{}` | Object | `style` for the Container of the main element which contains all `children` elements |
 | `containerClassName` | `''` | String | `className` for the Container of the main element which contains all `children` elements |

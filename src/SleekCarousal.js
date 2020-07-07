@@ -208,6 +208,7 @@ SleekCarousal.defaultProps = {
     speed: 1500,
     looping: false,
     relay: false,
+    panning: false,
     containerClassName: '',
     containerStyle: {},
     itemContainerClassName: '',
@@ -220,7 +221,6 @@ SleekCarousal.defaultProps = {
     trackerDotStyle: {},
     trackerDotActiveClassName: '',
     trackerDotActiveStyle: {},
-    panning: false,
 }
 
 SleekCarousal.propTypes = {
@@ -237,6 +237,7 @@ SleekCarousal.propTypes = {
     speed: PropTypes.number,
     looping: PropTypes.bool,
     relay: PropTypes.bool,
+    panning: PropTypes.bool,
     containerClassName: PropTypes.string,
     containerStyle: PropTypes.object,
     itemContainerClassName: PropTypes.string,
@@ -249,7 +250,6 @@ SleekCarousal.propTypes = {
     trackerDotStyle: PropTypes.object,
     trackerDotActiveClassName: PropTypes.string,
     trackerDotActiveStyle: PropTypes.object,
-    panning: PropTypes.bool,
 }
 
 export default SleekCarousal
