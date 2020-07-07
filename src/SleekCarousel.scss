@@ -2,9 +2,9 @@
     box-sizing: border-box;
 }
 
-.carousal {
+.carousel {
     position: relative;
-    .carousal-items {
+    .carousel-items {
         overflow: scroll;
         display: flex;
         flex-direction: column;
@@ -18,13 +18,13 @@
         &.vertical {
             flex-direction: row;
 
-            .carousal-item:not(:last-child) {
+            .carousel-item:not(:last-child) {
                 margin-right: 0;
                 margin-bottom: 20px;
             }
         }
 
-        .carousal-item {
+        .carousel-item {
             width: 100%;
             border: 1px solid black;
             &:not(:last-child) {

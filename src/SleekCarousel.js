@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import scrollIntoView from 'scroll-into-view'
 import { motion } from 'framer-motion'
 
-import './SleekCarousal.scss'
+import './SleekCarousel.scss'
 
-const SleekCarousal = ({
+const SleekCarousel = ({
     active: activeInitial,
     onTransitionStart,
     onTransitionOver,
@@ -151,7 +151,6 @@ const SleekCarousal = ({
     }
 
     const trackDragging = (_, info) => {
-        console.log(info)
         if ((!vertical && info.delta.x < 0) || (vertical && info.delta.y < 0)) {
             transitionToNext()
         } else {
@@ -160,10 +159,10 @@ const SleekCarousal = ({
     }
 
     return (
-        <div className={`${containerClassName} carousal`} style={containerStyle}>
+        <div className={`${containerClassName} carousel`} style={containerStyle}>
             <motion.div
                 onPanStart={panning ? trackDragging : null}
-                className={`${className} carousal-items${vertical ? ' vertical' : ''}`}
+                className={`${className} carousel-items${vertical ? ' vertical' : ''}`}
                 style={{ ...style, height }}
                 onWheel={!disableScroll ? trackScrolling : null}
             >
@@ -173,7 +172,7 @@ const SleekCarousal = ({
                 {
                     children.map((child, idx) => {
                         return (
-                            <div key={idx} className={`${itemContainerClassName} carousal-item`} style={{ ...itemContainerStyle, height }} ref={(el) => childRefs.current[idx] = el}>
+                            <div key={idx} className={`${itemContainerClassName} carousel-item`} style={{ ...itemContainerStyle, height }} ref={(el) => childRefs.current[idx] = el}>
                                 { child }
                             </div>
                         )
@@ -194,7 +193,7 @@ const SleekCarousal = ({
     )
 }
 
-SleekCarousal.defaultProps = {
+SleekCarousel.defaultProps = {
     children: [],
     active: 0,
     onTransitionStart: () => {},
@@ -223,7 +222,7 @@ SleekCarousal.defaultProps = {
     trackerDotActiveStyle: {},
 }
 
-SleekCarousal.propTypes = {
+SleekCarousel.propTypes = {
     children: PropTypes.arrayOf(PropTypes.element),
     active: PropTypes.number,
     onTransitionStart: PropTypes.func,
@@ -252,4 +251,4 @@ SleekCarousal.propTypes = {
     trackerDotActiveStyle: PropTypes.object,
 }
 
-export default SleekCarousal
+export default SleekCarousel
