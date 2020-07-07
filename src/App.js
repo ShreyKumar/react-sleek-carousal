@@ -5,7 +5,7 @@ import SleekCarousal from './SleekCarousal'
 function App() {
     return (
         <div className="App">
-            <SleekCarousal>
+            <SleekCarousal panning vertical>
                 <h1>A</h1>
                 <h1>B</h1>
                 <h1>C</h1>

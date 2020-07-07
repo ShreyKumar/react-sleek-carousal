@@ -31,7 +31,8 @@ const SleekCarousal = ({
     speed,
     disableScroll,
     looping,
-    relay
+    relay,
+    panning,
 }) => {
     const TOTAL_ITEMS = children.length
 
@@ -150,7 +151,8 @@ const SleekCarousal = ({
     }
 
     const trackDragging = (_, info) => {
-        if (info.delta.x < 0) {
+        console.log(info)
+        if ((!vertical && info.delta.x < 0) || (vertical && info.delta.y < 0)) {
             transitionToNext()
         } else {
             transitionToPrev()
@@ -159,7 +161,12 @@ const SleekCarousal = ({
 
     return (
         <div className={`${containerClassName} carousal`} style={containerStyle}>
-            <motion.div drag={vertical ? 'y' : 'x'} dragDirectionLock dragMomentum={false} onDragStart={trackDragging} className={`${className} carousal-items${vertical ? ' vertical' : ''}`} style={{ ...style, height }} onWheel={!disableScroll ? trackScrolling : null}>
+            <motion.div
+                onPanStart={panning ? trackDragging : null}
+                className={`${className} carousal-items${vertical ? ' vertical' : ''}`}
+                style={{ ...style, height }}
+                onWheel={!disableScroll ? trackScrolling : null}
+            >
                 {
                     looping && <div className="dummy" style={{height: "10px", width: "100%", marginBottom: 20}} />
                 }
@@ -213,6 +220,7 @@ SleekCarousal.defaultProps = {
     trackerDotStyle: {},
     trackerDotActiveClassName: '',
     trackerDotActiveStyle: {},
+    panning: false,
 }
 
 SleekCarousal.propTypes = {
@@ -241,6 +249,7 @@ SleekCarousal.propTypes = {
     trackerDotStyle: PropTypes.object,
     trackerDotActiveClassName: PropTypes.string,
     trackerDotActiveStyle: PropTypes.object,
+    panning: PropTypes.bool,
 }
 
 export default SleekCarousal
