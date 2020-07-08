@@ -1,10 +1,17 @@
 import React from 'react'
 
-import { ExampleComponent } from 'sleek-react-carousel'
+import SleekCarousel from 'sleek-react-carousel'
 import 'sleek-react-carousel/dist/index.css'
 
+import './App.scss'
+
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+    return (
+        <SleekCarousel>
+            <h1>A</h1>
+            <h1>B</h1>
+        </SleekCarousel>
+    )
 }
 
 export default App
