@@ -2,7 +2,8 @@ import React, { createRef, useEffect, useRef, useState } from 'react'
 import useInterval from '@use-it/interval';
 import PropTypes from 'prop-types'
 import scrollIntoView from 'scroll-into-view'
-import { motion } from 'framer-motion'
+import { motion, useViewportScroll } from 'framer-motion'
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 import styles from './SleekCarousel.scss'
 
@@ -162,7 +163,7 @@ const SleekCarousel = ({
         <div className={`${containerClassName} ${styles.carousel}`} style={containerStyle}>
             <motion.div
                 onPanStart={panning ? trackDragging : null}
-                className={`${className} ${styles['carousel-items']}${vertical ? ' vertical' : ''}`}
+                className={`${className} ${styles['carousel-items']}${vertical ? ` ${styles.vertical}` : ''}`}
                 style={{ ...style, height }}
                 onWheel={!disableScroll ? trackScrolling : null}
             >

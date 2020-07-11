@@ -10,9 +10,11 @@
     "eject": "node ../node_modules/react-scripts/bin/react-scripts.js eject"
   },
   "dependencies": {
+    "node-sass": "^4.14.1",
     "react": "link:../node_modules/react",
     "react-dom": "link:../node_modules/react-dom",
     "react-scripts": "link:../node_modules/react-scripts",
+    "react-syntax-highlighter": "^12.2.1",
     "sleek-react-carousel": "link:.."
   },
   "devDependencies": {

@@ -1,6 +1,24 @@
-.carousel-items {
-    margin-top: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
-    font-family: 'Futura';
+@font-face {
+    font-family: 'Galada';
+    src: url('./Galada-Regular.ttf')
+}
+
+.demo-page {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    .info {
+        h1, h2 {
+            font-family: 'Galada';
+        }
+        h1 {
+            font-size: 50px;
+        }
+        h2 {
+            font-size: 30px;
+        }
+    }
+    .title {
+        text-align: center;
+    }
 }
