@@ -21,7 +21,7 @@ import 'sleek-react-carousel/dist/index.css'
 
 const App = () => {
     return (
-        <SleekCarousel>
+        <SleekCarousel delay={null}>
             <div>Item 1</div>
             <div>Item 2</div>
             <div>Item 3</div>
@@ -30,8 +30,6 @@ const App = () => {
 }
 
 ```
-
-## Live Demo
 [Live Demo](https://shreykumar.github.io/react-sleek-carousal/)
 
 ## Customizability
@@ -47,7 +45,7 @@ This component has no required props
 | `height` | `500` | String, Number | Height of the main Carousel element in `px`, `rem`, `em`, default is `px` |
 | `disableTracker` | `false` | Boolean | Disables the tracker |
 | `disableScroll` | `false` | Boolean | Disable scrolling |
-| `delay` | `null` | Number | The time delay in `ms` between transitions |
+| `delay` | `3000` | Number | The time delay in `ms` between transitions |
 | `speed` | `1500` | Number | The speed in `ms` of transitions |
 | `looping` | `false` | Boolean | Enable carousel of loop back to the start |
 | `relay` | `false` | Boolean | Enable "relaying" back to the start instead of looping back. If both `relay` and `looping` is enabled, the Carousel ignores `looping` |
