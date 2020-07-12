@@ -30,7 +30,7 @@ const App = () => {
 }
 
 ```
-[Live Demo](https://shreykumar.github.io/react-sleek-carousal/)
+<a href="https://shreykumar.github.io/react-sleek-carousal/" target="_blank" rel="noopener noreferrer">Live Demo</a>
 
 ## Customizability
 This component has no required props
