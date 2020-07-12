@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SleekCarousel from 'sleek-react-carousel'
@@ -7,6 +7,10 @@ import 'sleek-react-carousel/dist/index.css'
 import './App.scss'
 
 const App = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const carouselItemStyle = {
         display: "flex",
         alignItems: "center",

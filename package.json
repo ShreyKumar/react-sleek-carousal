@@ -1,6 +1,6 @@
 {
   "name": "sleek-react-carousel",
-  "version": "1.0.1",
+  "version": "1.1.2",
   "description": "A lightweight, easy to use and highly customizable React component that achieves a &#x27;Carousel&#x27; or &#x27;Slideshow&#x27; effect. Allows for relay, panning and scrolling effects.",
   "keywords": [
     "react",

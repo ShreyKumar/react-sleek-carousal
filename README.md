@@ -31,6 +31,9 @@ const App = () => {
 
 ```
 
+## Live Demo
+[Live Demo](https://shreykumar.github.io/react-sleek-carousal/)
+
 ## Customizability
 This component has no required props
 | Prop name | Default Prop | Type | Info |
