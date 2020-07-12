@@ -2,8 +2,7 @@ import React, { createRef, useEffect, useRef, useState } from 'react'
 import useInterval from '@use-it/interval';
 import PropTypes from 'prop-types'
 import scrollIntoView from 'scroll-into-view'
-import { motion, useViewportScroll } from 'framer-motion'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { motion } from 'framer-motion'
 
 import styles from './SleekCarousel.scss'
 
