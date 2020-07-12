@@ -1,5 +1,5 @@
 # sleek-react-carousel
-A lightweight, easy to use and highly customizable React component that achieves a &#x27;Carousel&#x27; or &#x27;Slideshow&#x27; effect. Allows for relay, panning and scrolling effects.
+A [lightweight](https://bundlephobia.com/result?p=sleek-react-carousel@1.1.4), easy to use and highly customizable React component that achieves a &#x27;Carousel&#x27; or &#x27;Slideshow&#x27; effect. Allows for relay, panning and scrolling effects.
 
 [![NPM](https://img.shields.io/npm/v/sleek-react-carousel.svg)](https://www.npmjs.com/package/sleek-react-carousel) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 
