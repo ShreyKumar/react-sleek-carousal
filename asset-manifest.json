@@ -5,18 +5,18 @@
     "main.js.map": "./static/js/main.6c62bcab.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.9a437406.js",
     "runtime-main.js.map": "./static/js/runtime-main.9a437406.js.map",
-    "static/js/2.ae339de4.chunk.js": "./static/js/2.ae339de4.chunk.js",
-    "static/js/2.ae339de4.chunk.js.map": "./static/js/2.ae339de4.chunk.js.map",
+    "static/js/2.b35fd2e9.chunk.js": "./static/js/2.b35fd2e9.chunk.js",
+    "static/js/2.b35fd2e9.chunk.js.map": "./static/js/2.b35fd2e9.chunk.js.map",
     "index.html": "./index.html",
-    "precache-manifest.d3fd35578f5c8a959b4b10fc5f523251.js": "./precache-manifest.d3fd35578f5c8a959b4b10fc5f523251.js",
+    "precache-manifest.3092fc0711811d9b2c0f828b71d19e07.js": "./precache-manifest.3092fc0711811d9b2c0f828b71d19e07.js",
     "service-worker.js": "./service-worker.js",
     "static/css/main.c8b7cf3d.chunk.css.map": "./static/css/main.c8b7cf3d.chunk.css.map",
-    "static/js/2.ae339de4.chunk.js.LICENSE.txt": "./static/js/2.ae339de4.chunk.js.LICENSE.txt",
+    "static/js/2.b35fd2e9.chunk.js.LICENSE.txt": "./static/js/2.b35fd2e9.chunk.js.LICENSE.txt",
     "static/media/App.scss": "./static/media/Galada-Regular.d7d86e7e.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.9a437406.js",
-    "static/js/2.ae339de4.chunk.js",
+    "static/js/2.b35fd2e9.chunk.js",
     "static/css/main.c8b7cf3d.chunk.css",
     "static/js/main.6c62bcab.chunk.js"
   ]
